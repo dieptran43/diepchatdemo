@@ -1,0 +1,32 @@
+{
+  "name": "demochatherokuroom",
+  "version": "1.0.0",
+  "description": "Demo chat room in Node.js and socket io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieptran43/diepchatdemo.git"
+  },
+  "keywords": [
+    "Diep",
+    "Demo",
+    "Chat",
+    "2"
+  ],
+  "author": "DiepVan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dieptran43/diepchatdemo/issues"
+  },
+  "homepage": "https://github.com/dieptran43/diepchatdemo#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "nodemon": "^1.12.5",
+    "socket.io": "^2.0.4"
+  }
+}

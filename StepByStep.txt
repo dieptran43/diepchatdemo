@@ -1,0 +1,13 @@
+1.Create new repository "DemoChat"
+2.Use VS code get:
+
+echo "# diepchatdemo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/dieptran43/diepchatdemo.git
+git push -u origin master
+
+3.npm install --save express socket.io ejs
+
+
