@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Diep Chat Demo </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="scripts/client2.js"></script>
+    <link rel="stylesheet" href="css/layout2.css" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding: auto;">
+            <h1>Diep Demo Chat 0.1</h1>
+            <div id="loginForm" style="margin: auto">
+                <div id="divLogin" class="col-sm-6 col-md-8">
+                    <h4>What's your name?</h4>
+                    <div class="input-group">
+                        <input type="text" id="txtUserName" class="form-control" style="width:200px; margin-right: 10px" />
+                        <input type="button" value="Register" id="btnRegister" class="btn btn-primary">
+                    </div>
+                    <label id="lblMessage"></label>
+                </div>
+                <div id="divSayHi" class="col-sm-6 col-md-8">
+                    Hello,
+                    <b>
+                        <span id="currentUser">Teo</span>
+                    </b>
+                    <input type="button" value="Logout" id="btnLogout" class="btn btn-default">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-3 sidebar" style="background: yellow">
+                <h2>Users
+                    <div class="pull-right">
+                       <a id="addGroup" data-toggle="addGroupToolTip" title="Add group chat"> <span class="glyphicon glyphicon-subtitles"></span></a>
+                    </div>
+                </h2>
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        <a>Overview
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>User 1</a>
+                    </li>
+                    <li>
+                        <a>User 2</a>
+                    </li>
+                    <li>
+                        <a>Export</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-window col-sm-6 col-md-5" id="chat_window_1" style="margin-right:10px;">
+                <div class="col-sm-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading top-bar">
+                            <div class="col-md-8 col-sm-8">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-comment">
+                                    </span> Chat -
+                                    <b>
+                                        <span id="chatWithUser">Ty</span>
+                                    </b>
+                                </h3>
+                            </div>
+                            <div class="col-md-4 col-sm-4" style="text-align: right;">
+                                <a href="#">
+                                    <span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body msg_container_base">
+                            <div class="row msg_container base_sent">
+                                <div class="col-md-10 col-sm-10">
+                                    <div class="messages msg_sent">
+                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2 avatar">
+                                    <img src="images/hotgirl.jpg" class=" img-responsive ">
+                                </div>
+                            </div>
+                            <div class="row msg_container base_receive">
+                                <div class="col-md-2 col-sm-2 avatar">
+                                    <img src="images/hotgirl.jpg" class=" img-responsive ">
+                                </div>
+                                <div class="col-md-10 col-sm-10">
+                                    <div class="messages msg_receive">
+                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row msg_container base_receive">
+                                <div class="col-md-2 col-sm-2 avatar">
+                                    <img src="images/hotgirl.jpg" class=" img-responsive ">
+                                </div>
+                                <div class="col-sm-10 col-md-10">
+                                    <div class="messages msg_receive">
+                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="txtMessage" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-sm" id="btnSendMessage">Send</button>
+                                </span>
+                            </div>
+                            <i>
+                                <span id="lblTypping">
+                                    </label>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="btn-group dropup">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="#" id="new_chat">
+                        <span class="glyphicon glyphicon-plus"></span> New Chat</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-list"></span> List user</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-subtitles"></span> Group</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-eye-close"></span> Invisivel</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

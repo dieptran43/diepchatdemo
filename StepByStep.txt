@@ -10,4 +10,8 @@ git push -u origin master
 
 3.npm install --save express socket.io ejs
 
+4.set template
+https://bootsnipp.com/snippets/featured/simple-chat
+https://bootsnipp.com/snippets/featured/like-hangout-chat
+
 
