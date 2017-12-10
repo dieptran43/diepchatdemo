@@ -1,4 +1,4 @@
-var socket = io('http://localhost:3000');
+var socket = io('https://diepchatdemo.herokuapp.com');
 $(function(){
    // socket.emit("client-send-connect", "A Connect!!");
 
