@@ -1,6 +1,6 @@
 var socket = io('https://diepchatdemo.herokuapp.com');
 $(function () {
-    //End script 
+    // socket.emit("client-send-connect", "A Connect!!");
     $(document).on('click', '.panel-heading span.icon_minim', function (e) {
         var $this = $(this);
         if (!$this.hasClass('panel-collapsed')) {
@@ -32,7 +32,8 @@ $(function () {
         //$(this).parent().parent().parent().parent().remove();
         $("#chat_window_1").remove();
     });
-    
+
+
     // socket.emit("client-send-connect", "A Connect!!");
     //s1
     var me = {};
@@ -109,6 +110,18 @@ $(function () {
         }
     });
 
+    $("#").click(function () {
+        var msg = $(this).val();
+        let userChat = $("#chatWithUserId").text();
+        let userName = $("#currentUser").text();
+        if (msg !== "" && userChat !== "") {
+            insertChat("me", msg);
+            $(this).val('');
+            //send server chat            
+            socket.emit("client-send-message-chat", { msg: msg, userName: userName, userChat: userChat });
+        }
+    });
+
     //-- Clear Chat
     resetChat();
 
@@ -154,7 +167,7 @@ $(function () {
         $("#divLogin").hide(1000);
     })
     socket.on("server-send-manageUsers", data => {
-       //debugger
+        //debugger
         $('ul.nav.nav-sidebar').html("");
         data.forEach(function (element) {
             //$('ul.nav.nav-sidebar').append('<li class="userOnline" click="chatToUser('+ element+')"><a>' +element+ '</a></li>');
@@ -296,7 +309,7 @@ $(function () {
         if (data.userName !== txtUserName && txtUserChat == data.socketID) {
             insertChat2(data.userName, data.msg);
         }
-        else if(data.userName !== txtUserName && txtUserChat == data.userChat){
+        else if (data.userName !== txtUserName && txtUserChat == data.userChat) {
             insertChat2(data.userName, data.msg);
         }
     });
@@ -306,7 +319,5 @@ $(function () {
     // });
     //e7
 
-    
 
 })
-
