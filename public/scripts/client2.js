@@ -110,7 +110,7 @@ $(function () {
         }
     });
 
-    $("#").click(function () {
+    $("#btnSendMessage").click(function () {
         var msg = $(this).val();
         let userChat = $("#chatWithUserId").text();
         let userName = $("#currentUser").text();
