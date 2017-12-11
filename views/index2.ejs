@@ -9,6 +9,7 @@
     <script src="https://diepchatdemo.herokuapp.com/socket.io/socket.io.js"></script>
     <script src="scripts/client2.js"></script>
     <link rel="stylesheet" href="css/layout2.css" type="text/css">
+
 </head>
 
 <body>
@@ -35,18 +36,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-md-3 sidebar" style="background: yellow">
+            <div class="col-sm-6 col-md-3 sidebar" style="background: #ffff99">
                 <h2>Users
                     <div class="pull-right">
-                       <a id="addGroup" data-toggle="addGroupToolTip" title="Add group chat"> <span class="glyphicon glyphicon-subtitles"></span></a>
+                        <a data-toggle="modal" data-target="#myModal" title="Add group chat">
+                            <span class="glyphicon glyphicon-subtitles"></span>
+                        </a>
                     </div>
                 </h2>
+                <span id="spCurrentRoom"></span>
                 <ul class="nav nav-sidebar">
-                    <li class="active">
-                        <a>Overview
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
                     <li>
                         <a>User 1</a>
                     </li>
@@ -54,7 +53,10 @@
                         <a>User 2</a>
                     </li>
                     <li>
-                        <a>Export</a>
+                        <a>User 3</a>
+                    </li>
+                    <li>
+                        <a>User 4</a>
                     </li>
                 </ul>
             </div>
@@ -65,10 +67,12 @@
                             <div class="col-md-8 col-sm-8">
                                 <h3 class="panel-title">
                                     <span class="glyphicon glyphicon-comment">
-                                    </span> Chat -
+                                    </span>
                                     <b>
-                                        <span id="chatWithUser">Ty</span>
+                                        <span id="chatWithUser">Empty user, please choose...</span>
+
                                     </b>
+                                    <span id="chatWithUserId" style="display:none"></span>
                                 </h3>
                             </div>
                             <div class="col-md-4 col-sm-4" style="text-align: right;">
@@ -164,6 +168,31 @@
         </div>
     </div>
 
+    <!--Model add group-->
+    <!-- Trigger the modal with a button -->
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Group</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="txtGroupName" class="form-control" placeholder="Enter name is..." />
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnAddGroup" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -175,7 +204,35 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <style>
+        /* unvisited link */
 
+        a:link {
+            color: green;
+        }
+
+        /* visited link */
+
+        a:visited {
+            color: green;
+        }
+
+        /* mouse over link */
+
+        a:hover {
+            color: red;
+        }
+
+        /* selected link */
+
+        a:active {
+            color: red;
+        }
+
+        .li-active {
+            background: #e6ffb3;
+        }
+    </style>
 </body>
 
 </html>
