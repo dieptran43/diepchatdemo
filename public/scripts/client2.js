@@ -1,4 +1,5 @@
-var socket = io('https://diepchatdemo.herokuapp.com');
+const socket = io('https://diepchatdemo.herokuapp.com');
+//const socket = io('http://localhost:3000');
 $(function () {
     // socket.emit("client-send-connect", "A Connect!!");
     $(document).on('click', '.panel-heading span.icon_minim', function (e) {
@@ -89,6 +90,8 @@ $(function () {
                 $(".panel-body.msg_container_base").append(control);
 
             }, time);
+        let divContent = document.getElementById("divContentMsg");
+        divContent.scrollTop = divContent.scrollHeight;
 
     }
 
@@ -101,7 +104,7 @@ $(function () {
             var msg = $(this).val();
             let userChat = $("#chatWithUserId").text();
             let userName = $("#currentUser").text();
-            if (msg !== "" && userChat !== "") {
+            if (msg !== "" || userChat !== "") {
                 insertChat("me", msg);
                 $(this).val('');
                 //send server chat            
@@ -111,12 +114,12 @@ $(function () {
     });
 
     $("#btnSendMessage").click(function () {
-        var msg = $(this).val();
+        var msg = $("#txtMessage").val().trim();
         let userChat = $("#chatWithUserId").text();
         let userName = $("#currentUser").text();
-        if (msg !== "" && userChat !== "") {
+        if (msg !== "" || userChat !== "") {
             insertChat("me", msg);
-            $(this).val('');
+            $("#txtMessage").val('');
             //send server chat            
             socket.emit("client-send-message-chat", { msg: msg, userName: userName, userChat: userChat });
         }
@@ -254,7 +257,7 @@ $(function () {
         $("ul.nav.nav-sidebar").find(".li-active").removeClass("li-active");
         $(this).addClass("li-active");
         //~
-        socket.emit("client-create-room", $(this).attr("code"));
+        socket.emit("client-select-room", $(this).attr("code"));
     });
     //e5
 
@@ -293,9 +296,30 @@ $(function () {
         setTimeout(
             function () {
                 $(".panel-body.msg_container_base").append(control);
-
             }, time);
+           // $('#divContentMsg').scrollTop($('#divContentMsg').height())
+        var divContent = document.getElementById("divContentMsg");
+        divContent.scrollTop = divContent.scrollHeight + 100;
+    }
 
+    function focusAndPlaceCaretAtEnd(el) {
+        el.focus();
+        if (typeof window.getSelection != "undefined"
+            && typeof document.createRange != "undefined") {
+            console.log('her')
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+
+        } else if (typeof document.body.createTextRange != "undefined") {
+            var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(false);
+            textRange.select();
+        }
     }
 
     //e6

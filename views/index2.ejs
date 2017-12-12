@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/jquery-3.2.1.min.js"></script>
     <script src="https://diepchatdemo.herokuapp.com/socket.io/socket.io.js"></script>
+    <!-- <script src="socket.io/socket.io.js"></script> -->
     <script src="scripts/client2.js"></script>
     <link rel="stylesheet" href="css/layout2.css" type="text/css">
 
@@ -84,7 +85,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="panel-body msg_container_base">
+                        <div id="divContentMsg" class="panel-body msg_container_base">
                             <div class="row msg_container base_sent">
                                 <div class="col-md-10 col-sm-10">
                                     <div class="messages msg_sent">
@@ -119,6 +120,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="panel-footer">
                             <div class="input-group">
                                 <input id="txtMessage" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />

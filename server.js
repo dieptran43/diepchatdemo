@@ -66,9 +66,7 @@ io.on('connection', socket =>{
 
     socket.on("client-create-room", data =>{
         //socket.userName = data;
-        socket.join(data); //join room
-
-        let checkExist = true;
+        let checkExist = true;        
         manageUsers.forEach(e =>{
             if(e.data == data){
                 checkExist = false;
@@ -84,6 +82,29 @@ io.on('connection', socket =>{
             socket.broadcast.emit('server-send-message-newmember', data);
             //log(socket.adapter.rooms) //know how many rooms
             //log(socket);
+        }        
+    });
+
+    socket.on("client-select-room", data =>{
+        //socket.userName = data;
+        socket.join(data); //join room
+
+        let checkExist = true;
+        for(r in socket.adapter.rooms)
+        {
+            if(r == data){
+                checkExist = false;
+                log(`Da tim thay ${r} - data ${data}`);
+                return;
+            }
+        }
+        if(checkExist){            
+            socket.roomNames = data;
+            manageUsers.push({data, id: data});
+            //update for list user in client
+            io.sockets.emit('server-send-manageUsers', manageUsers);
+            socket.emit("server-send-inroom", data);
+            socket.broadcast.emit('server-send-message-newmember', data);
         }        
     });
 
