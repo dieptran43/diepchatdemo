@@ -1,8 +1,8 @@
 const socket = io('https://diepchatdemo.herokuapp.com');
 //const socket = io('http://localhost:3000');
-$(function () {
+$(function() {
     // socket.emit("client-send-connect", "A Connect!!");
-    $(document).on('click', '.panel-heading span.icon_minim', function (e) {
+    $(document).on('click', '.panel-heading span.icon_minim', function(e) {
         var $this = $(this);
         if (!$this.hasClass('panel-collapsed')) {
             $this.parents('.panel').find('.panel-body').slideUp();
@@ -14,7 +14,7 @@ $(function () {
             $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
-    $(document).on('focus', '.panel-footer input.chat_input', function (e) {
+    $(document).on('focus', '.panel-footer input.chat_input', function(e) {
         var $this = $(this);
         if ($('#minim_chat_window').hasClass('panel-collapsed')) {
             $this.parents('.panel').find('.panel-body').slideDown();
@@ -22,14 +22,14 @@ $(function () {
             $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
-    $(document).on('click', '#new_chat', function (e) {
+    $(document).on('click', '#new_chat', function(e) {
         var size = $(".chat-window:last-child").css("margin-left");
         size_total = parseInt(size) + 400;
         alert(size_total);
         var clone = $("#chat_window_1").clone().appendTo(".container");
         clone.css("margin-left", size_total);
     });
-    $(document).on('click', '.icon_close', function (e) {
+    $(document).on('click', '.icon_close', function(e) {
         //$(this).parent().parent().parent().parent().remove();
         $("#chat_window_1").remove();
     });
@@ -86,12 +86,13 @@ $(function () {
                 '</div>'
         }
         setTimeout(
-            function () {
+            function() {
                 $(".panel-body.msg_container_base").append(control);
+                $("#divContentMsg").animate({
+                    scrollTop: $(".row").last().offset().top
+                }, 'slow');
 
             }, time);
-        let divContent = document.getElementById("divContentMsg");
-        divContent.scrollTop = divContent.scrollHeight;
 
     }
 
@@ -99,7 +100,7 @@ $(function () {
         $(".panel-body.msg_container_base").empty();
     }
 
-    $("#txtMessage").on("keyup", function (e) {
+    $("#txtMessage").on("keyup", function(e) {
         if (e.which == 13) {
             var msg = $(this).val();
             let userChat = $("#chatWithUserId").text();
@@ -113,7 +114,7 @@ $(function () {
         }
     });
 
-    $("#btnSendMessage").click(function () {
+    $("#btnSendMessage").click(function() {
         var msg = $("#txtMessage").val().trim();
         let userChat = $("#chatWithUserId").text();
         let userName = $("#currentUser").text();
@@ -129,12 +130,9 @@ $(function () {
     resetChat();
 
     //-- Print Messages
-    insertChat("me", "Hello Tom...", 0);
+    insertChat("me", "Hello Marry...", 0);
     insertChat("you", "Hi, Pablo", 1500);
-    insertChat("me", "What would you like to talk about today?", 3500);
-    insertChat("you", "Tell me a joke", 7000);
-    insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
-    insertChat("you", "LOL", 12000);
+    insertChat("me", "What did you do?", 1570);
     //e1
 
     //s2 //show hide div
@@ -143,15 +141,14 @@ $(function () {
     //s3 
     $("#divSayHi").hide();
 
-    $("#btnRegister").click(function () {
+    $("#btnRegister").click(function() {
         let username = $("#txtUserName").val().trim();
         if (username != '') {
             socket.emit("client-send-userName", username);
             $("#lblMessage").removeClass("alert alert-danger");
             $("#lblMessage").text("");
             console.log("client-send-userName")
-        }
-        else {
+        } else {
             $("#lblMessage").addClass("alert alert-danger");
             $("#lblMessage").text("Please enter user name...");
         }
@@ -172,7 +169,7 @@ $(function () {
     socket.on("server-send-manageUsers", data => {
         //debugger
         $('ul.nav.nav-sidebar').html("");
-        data.forEach(function (element) {
+        data.forEach(function(element) {
             //$('ul.nav.nav-sidebar').append('<li class="userOnline" click="chatToUser('+ element+')"><a>' +element+ '</a></li>');
             $('ul.nav.nav-sidebar').append('<li class="userOnline" value="' + element.data + '" code="' + element.id + '"><a>' + element.data + '</a></li>');
         });
@@ -186,7 +183,7 @@ $(function () {
 
     //user logout
     //user click logout
-    $("#btnLogout").click(function () {
+    $("#btnLogout").click(function() {
         //debugger;
         socket.emit("client-send-logout");
         $("#divSayHi").hide(1000);
@@ -198,11 +195,11 @@ $(function () {
     //     socket.emit("client-send-chat", $("#txtMessage").val());
     // });
 
-    $("#txtMessage").focusin(function () {
+    $("#txtMessage").focusin(function() {
         socket.emit("client-stypping");
     });
 
-    $("#txtMessage").focusout(function () {
+    $("#txtMessage").focusout(function() {
         socket.emit("client-stypping-out");
     });
 
@@ -212,7 +209,7 @@ $(function () {
         }
     });
 
-    socket.on("server-message-typping-out", function () {
+    socket.on("server-message-typping-out", function() {
         $("#lblTypping").html("");
     });
 
@@ -226,19 +223,18 @@ $(function () {
         let roomName = $("#txtGroupName").val().trim();
         if (roomName) {
             socket.emit("client-create-room", roomName);
-        }
-        else {
+        } else {
             $("#spCurrentRoom").html("Please enter name for group.");
-            setTimeout(function () {
+            setTimeout(function() {
                 $("#spCurrentRoom").html("");
             }, 3000);
         }
 
     });
 
-    socket.on("server-send-inroom", function (data) {
+    socket.on("server-send-inroom", function(data) {
         $("#spCurrentRoom").html(data + " is created.");
-        setTimeout(function () {
+        setTimeout(function() {
             $("#spCurrentRoom").html("");
         }, 3000);
     });
@@ -246,7 +242,7 @@ $(function () {
 
     //s5
     //select user or room to chat
-    $("ul.nav.nav-sidebar").on("click", ".userOnline", function (e) {
+    $("ul.nav.nav-sidebar").on("click", ".userOnline", function(e) {
         e.preventDefault();
         let userSelect = $(this).attr("value");
         let currentUser = $("#currentUser").text();
@@ -294,18 +290,18 @@ $(function () {
                 '</div>'
         }
         setTimeout(
-            function () {
+            function() {
                 $(".panel-body.msg_container_base").append(control);
             }, time);
-           // $('#divContentMsg').scrollTop($('#divContentMsg').height())
+        // $('#divContentMsg').scrollTop($('#divContentMsg').height())
         var divContent = document.getElementById("divContentMsg");
         divContent.scrollTop = divContent.scrollHeight + 100;
     }
 
     function focusAndPlaceCaretAtEnd(el) {
         el.focus();
-        if (typeof window.getSelection != "undefined"
-            && typeof document.createRange != "undefined") {
+        if (typeof window.getSelection != "undefined" &&
+            typeof document.createRange != "undefined") {
             console.log('her')
             var range = document.createRange();
             range.selectNodeContents(el);
@@ -333,8 +329,7 @@ $(function () {
         let txtUserName = $("#currentUser").text();
         if (data.userName !== txtUserName && txtUserChat == data.socketID) {
             insertChat2(data.userName, data.msg);
-        }
-        else if (data.userName !== txtUserName && txtUserChat == data.userChat) {
+        } else if (data.userName !== txtUserName && txtUserChat == data.userChat) {
             insertChat2(data.userName, data.msg);
         }
     });

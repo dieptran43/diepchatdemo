@@ -10,13 +10,12 @@
     <!-- <script src="socket.io/socket.io.js"></script> -->
     <script src="scripts/client2.js"></script>
     <link rel="stylesheet" href="css/layout2.css" type="text/css">
-
 </head>
 
 <body>
     <div class="container">
         <div class="row" style="margin-top: 10px; margin-bottom: 20px; padding: auto;">
-            <h1>Diep Demo Chat 0.1</h1>
+            <h1>Diep Demo Chat 0.2</h1>
             <div id="loginForm" style="margin: auto">
                 <div id="divLogin" class="col-sm-6 col-md-8">
                     <h4>What's your name?</h4>
@@ -37,7 +36,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-md-3 sidebar" style="background: #ffff99">
+            <div class="col-sm-6 col-md-3 sidebar" style="background: #f5f5f5">
                 <h2>Users
                     <div class="pull-right">
                         <a data-toggle="modal" data-target="#myModal" title="Add group chat">
@@ -58,6 +57,9 @@
                     </li>
                     <li>
                         <a>User 4</a>
+                    </li>
+                    <li>
+                        <a>Group 5</a>
                     </li>
                 </ul>
             </div>
@@ -89,7 +91,7 @@
                             <div class="row msg_container base_sent">
                                 <div class="col-md-10 col-sm-10">
                                     <div class="messages msg_sent">
-                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                        <p>that mongodb thing looks good, huh? tiny master</p>
                                         <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                                     </div>
                                 </div>
@@ -103,18 +105,7 @@
                                 </div>
                                 <div class="col-md-10 col-sm-10">
                                     <div class="messages msg_receive">
-                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
-                                        <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row msg_container base_receive">
-                                <div class="col-md-2 col-sm-2 avatar">
-                                    <img src="images/hotgirl.jpg" class=" img-responsive ">
-                                </div>
-                                <div class="col-sm-10 col-md-10">
-                                    <div class="messages msg_receive">
-                                        <p>that mongodb thing looks good, huh? tiny master db, and huge document store</p>
+                                        <p>that mongodb thing looks good, huh? tiny master db</p>
                                         <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
                                     </div>
                                 </div>
@@ -125,12 +116,12 @@
                             <div class="input-group">
                                 <input id="txtMessage" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary btn-sm" id="btnSendMessage">Send</button>
+                                    <button class="btn btn-primary btn-sm" 
+                                    id="btnSendMessage">Send</button>
                                 </span>
                             </div>
                             <i>
-                                <span id="lblTypping">
-                                    </label>
+                                <span id="lblTypping"> </span>
                             </i>
                         </div>
                     </div>
@@ -196,41 +187,35 @@
     </div>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <style>
         /* unvisited link */
-
+        
         a:link {
             color: green;
         }
-
         /* visited link */
-
+        
         a:visited {
             color: green;
         }
-
         /* mouse over link */
-
+        
         a:hover {
             color: red;
         }
-
         /* selected link */
-
+        
         a:active {
             color: red;
         }
-
+        
         .li-active {
             background: #e6ffb3;
         }
