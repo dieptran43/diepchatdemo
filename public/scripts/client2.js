@@ -292,10 +292,12 @@ $(function() {
         setTimeout(
             function() {
                 $(".panel-body.msg_container_base").append(control);
+                $("#divContentMsg").animate({
+                    scrollTop: $(".row").last().offset().top
+                }, 'slow');
             }, time);
         // $('#divContentMsg').scrollTop($('#divContentMsg').height())
-        var divContent = document.getElementById("divContentMsg");
-        divContent.scrollTop = divContent.scrollHeight + 100;
+
     }
 
     function focusAndPlaceCaretAtEnd(el) {
